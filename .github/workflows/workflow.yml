@@ -35,13 +35,15 @@ jobs:
       - name: "Run unittest"
         run: python -m unittest
   coverage_report:
-    needs: test
+#    needs: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
         with:
           python-version: '3.8.10'
+      - name: "Install pytest dependency"
+        run: pip install --user  pytest
       - name: "Install coverage dependency"
         run: pip install --user  coverage
       - name: "Run coverage"
