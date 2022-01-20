@@ -14,8 +14,16 @@ jobs:
         run: pip install --user black
       - name: "Run style check"
         run: black --check .
+#  build:
+#    needs: style
+#    runs-on: ubuntu-latest
+#    env:
+#      PROJECT_NAME: "Automation Lecture"
+#    steps:
+#      - name: "Run build phase"
+#        run: echo "Building project $PROJECT_NAME"
   test:
-    needs: build
+#    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -38,12 +46,5 @@ jobs:
       - name: "Run coverage"
         run: coverage run -m pytest
     
-#  build:
-#    needs: style
-#    runs-on: ubuntu-latest
-#    env:
-#      PROJECT_NAME: "Automation Lecture"
-#    steps:
-#      - name: "Run build phase"
-#        run: echo "Building project $PROJECT_NAME"
+#  
   
