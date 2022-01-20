@@ -35,6 +35,7 @@ jobs:
       - name: "Run unittest"
         run: python -m unittest
   coverage_report:
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
