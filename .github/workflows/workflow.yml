@@ -52,6 +52,9 @@ jobs:
         run: pip install --user  matplotlib
       - name: "Run coverage"
         run: coverage run -m pytest
-    
-#  
-  
+  copy_report:
+    needs: coverage_report
+    steps:
+      - uses: actions/checkout@v2
+      - name: "Copy report file"
+      run: cp .coverage "${GITHUB_WORKSPACE}/.coverage"
