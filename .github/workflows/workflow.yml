@@ -57,4 +57,4 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: "Copy report file"
-      run: cp .coverage "${GITHUB_WORKSPACE}/.coverage"
+        run: cp .coverage "${GITHUB_WORKSPACE}/.coverage"
