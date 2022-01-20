@@ -54,6 +54,7 @@ jobs:
         run: coverage run -m pytest
   copy_report:
     needs: coverage_report
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: "Copy report file"
