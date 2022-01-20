@@ -3,7 +3,7 @@ name: Testing workflow
 on: [push, pull_request]
 
 jobs:
-  style check:
+  style_check:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -26,7 +26,7 @@ jobs:
         run: pip install --user  pytest
       - name: "Run unittest"
         run: python -m unittest
-  coverage report:
+  coverage_report:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
