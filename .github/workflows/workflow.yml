@@ -1,6 +1,6 @@
 name: SSE CI/CD
 
-on: [push, pull_request]
+on: [push]
 
 jobs:
   style_check:
@@ -14,18 +14,8 @@ jobs:
         run: pip install --user black
       - name: "Run style check"
         run: black --check .
+        
   test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-        with:
-          python-version: '3.8.10'
-      - name: "Install pytest dependency"
-        run: pip install --user  pytest
-      - name: "Run unittest"
-        run: python -m unittest
-  coverage_report:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -40,8 +30,29 @@ jobs:
         run: pip install --user  numpy
       - name: "Install pytest dependency"
         run: pip install --user  matplotlib
-      - name: "Create coverage"
+      - name: "Create coverage and run test"
         run: coverage run -m pytest
+      - name: "Archive intermediate coverage report"
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage_intermediate
+          path: .coverage
+          retention-days: 1
+        
+  coverage_report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.8.10'
+      - name: "Install coverage dependency"
+        run: pip install --user  coverage
+      - name: "Retrieve intermediate coverage report"
+        uses: actions/download-artifact@v2
+        with:
+          name: coverage_intermediate
+          path: .coverage
       - name: "Convert coverage to xml"
         run: coverage xml
       - name: "Archive coverage report"
