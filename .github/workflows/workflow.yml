@@ -26,7 +26,6 @@ jobs:
       - name: "Run unittest"
         run: python -m unittest
   coverage_report:
-#    needs: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -41,11 +40,13 @@ jobs:
         run: pip install --user  numpy
       - name: "Install pytest dependency"
         run: pip install --user  matplotlib
-      - name: "Run coverage"
+      - name: "Create coverage"
         run: coverage run -m pytest
+      - name: "Convert coverage to xml"
+        run: coverage xml
       - name: "Archive coverage report"
         uses: actions/upload-artifact@v2
         with:
-          name: test_coverage
-          path: .coverage
-          retention-days: 1
+          name: coverage_report
+          path: coverage.xml
+          retention-days: 14
