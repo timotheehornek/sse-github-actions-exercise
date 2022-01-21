@@ -53,7 +53,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: coverage_intermediate
-          path: .coverage
+#          path: .coverage
       - name: "Convert coverage to xml"
         run: coverage xml
       - name: "Archive coverage report"
